@@ -54,9 +54,12 @@
 		</dependency>
 		<dependency>
             <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-            
+            <artifactId>postgresql</artifactId>         
        </dependency>
+       <dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-config</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
