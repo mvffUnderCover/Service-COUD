@@ -3,6 +3,7 @@ package com.santeservice.service.impl;
 import com.santeservice.dto.ConsultationDTO;
 import com.santeservice.dto.DossierMedicalDTO;
 import com.santeservice.dto.MesureDTO;
+import com.santeservice.dto.UtilisateurDTO;
 import com.santeservice.model.Consultation;
 import com.santeservice.model.DossierMedical;
 import com.santeservice.model.MesuresMedicale;
@@ -11,11 +12,15 @@ import com.santeservice.repository.DossierMedicalRepository;
 import com.santeservice.repository.MesuresMedicaleRepository;
 import com.santeservice.service.DossierMedicalService;
 import com.santeservice.exception.ResourceNotFoundException;
-
+import com.santeservice.feign.AuthClient;
+import com.santeservice.mapper.DossierMedicalMapper;
+import com.santeservice.mapper.MapToEntityToMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -30,51 +35,72 @@ public class DossierMedicalServiceImpl implements DossierMedicalService {
 
     @Autowired
     private MesuresMedicaleRepository mesureRepository;
+    
+    private final AuthClient authClient;
 
-
-    private DossierMedicalDTO toDto(DossierMedical entity) {
-        DossierMedicalDTO dto = new DossierMedicalDTO();
-        dto.setNumeroDossier(entity.getNumeroDossier());
-        dto.setIdEtudiant(entity.getIdEtudiant());
-        dto.setIdSecretaire(entity.getIdSecretaire());
-        dto.setAntecedent(entity.getAntecedent());
-        dto.setGroupeSanguin(entity.getGroupeSanguin());
-        dto.setVaccination(entity.getVaccination());
-        return dto;
+    public DossierMedicalServiceImpl(AuthClient authClient) {
+        this.authClient = authClient;
     }
-
-    private DossierMedical toEntity(DossierMedicalDTO dto) {
-        DossierMedical entity = new DossierMedical();
-        entity.setNumeroDossier(dto.getNumeroDossier());
-        entity.setIdEtudiant(dto.getIdEtudiant());
-        entity.setIdSecretaire(dto.getIdSecretaire());
-        entity.setAntecedent(dto.getAntecedent());
-        entity.setGroupeSanguin(dto.getGroupeSanguin());
-        entity.setVaccination(dto.getVaccination());
-        return entity;
-    }
+    
+    @Autowired
+    private MapToEntityToMap servicemap;
 
     @Override
     public DossierMedicalDTO create(DossierMedicalDTO dto) {
-        return toDto(repository.save(toEntity(dto)));
+        String idEtudiant = dto.getNumeroDossier(); // L’ID Étudiant = Numéro Dossier
+
+        // Récupération des infos depuis auth-service
+        UtilisateurDTO etudiant = authClient.getUtilisateurById(idEtudiant);
+
+        if (etudiant == null || etudiant.getRole() == null || !etudiant.getRole().equalsIgnoreCase("ETUDIANT")) {
+            throw new RuntimeException("Étudiant non trouvé ou rôle invalide");
+        }
+
+        // Construction de l’entité
+        DossierMedical dossier = new DossierMedical();
+        dossier.setNumeroDossier(idEtudiant); // obligatoire puisque pas auto-généré
+        dossier.setIdSecretaire(dto.getIdSecretaire());
+        dossier.setAntecedent(""); // vide par défaut
+        dossier.setGroupeSanguin("");
+        dossier.setVaccination("");
+        dossier.setConsultations(new ArrayList<>());
+        dossier.setMesures(new ArrayList<>());
+
+        // Sauvegarde
+        DossierMedical saved = repository.save(dossier);
+
+        // Construction du DTO de réponse
+        return DossierMedicalMapper.buildDtoWithEtudiantInfo(saved, etudiant);
     }
+
 
     @Override
     public DossierMedicalDTO update(String numeroDossier, DossierMedicalDTO dto) {
         DossierMedical existing = repository.findById(numeroDossier).orElseThrow();
         existing.setAntecedent(dto.getAntecedent());
         existing.setVaccination(dto.getVaccination());
-        return toDto(repository.save(existing));
+        return servicemap.toDto(repository.save(existing));
     }
 
     @Override
     public DossierMedicalDTO getByNumero(String numeroDossier) {
-        return toDto(repository.findById(numeroDossier).orElseThrow());
+        DossierMedical dossier = repository.findById(numeroDossier)
+            .orElseThrow(() -> new RuntimeException("Dossier non trouvé"));
+
+        // Récupération des infos depuis auth-service
+        UtilisateurDTO etudiant = authClient.getUtilisateurById(numeroDossier);
+
+        if (etudiant == null || etudiant.getRole() == null || !etudiant.getRole().equalsIgnoreCase("ETUDIANT")) {
+            throw new RuntimeException("Étudiant non trouvé ou rôle invalide");
+        }
+
+        return DossierMedicalMapper.buildDtoWithEtudiantInfo(dossier, etudiant);
     }
+
 
     @Override
     public List<DossierMedicalDTO> getAll() {
-        return repository.findAll().stream().map(this::toDto).collect(Collectors.toList());
+        return repository.findAll().stream().map(servicemap::toDto).collect(Collectors.toList());
     }
     
     @Override
@@ -87,7 +113,7 @@ public class DossierMedicalServiceImpl implements DossierMedicalService {
         Consultation consultation = new Consultation();
         consultation.setDossierMedical(dossier);
         consultation.setIdMedecin(dto.getIdMedecin());
-        consultation.setDateConsultation(dto.getDateConsultation());
+        consultation.setDateConsultation(LocalDate.now());
         consultation.setExamens(dto.getExamens());
         consultation.setTraitements(dto.getTraitements());
 
@@ -146,7 +172,7 @@ public class DossierMedicalServiceImpl implements DossierMedicalService {
 
         MesuresMedicale mesure = new MesuresMedicale();
         mesure.setDossierMedical(dossier);
-        mesure.setDateMesure(dto.getDateMesure());
+        mesure.setDateMesure(LocalDate.now());
         mesure.setPoids(dto.getPoids());
         mesure.setTaille(dto.getTaille());
         mesure.setTensionArterielle(dto.getTensionArterielle());

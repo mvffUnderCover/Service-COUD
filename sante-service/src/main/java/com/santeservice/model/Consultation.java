@@ -1,6 +1,8 @@
 package com.santeservice.model;
 
 import jakarta.persistence.*;
+
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -13,8 +15,8 @@ public class Consultation {
 
     private String idMedecin;
 
-    @Temporal(TemporalType.DATE)
-    private Date dateConsultation;
+   
+    private LocalDate dateConsultation;
 
     private String examens;
     private String traitements;
@@ -39,14 +41,7 @@ public class Consultation {
 		this.idMedecin = idMedecin;
 	}
 
-	public Date getDateConsultation() {
-		return dateConsultation;
-	}
-
-	public void setDateConsultation(Date dateConsultation) {
-		this.dateConsultation = dateConsultation;
-	}
-
+	
 
 	public String getTraitements() {
 		return traitements;
@@ -70,6 +65,14 @@ public class Consultation {
 
 	public void setExamens(String examens) {
 		this.examens = examens;
+	}
+
+	public LocalDate getDateConsultation() {
+		return dateConsultation;
+	}
+
+	public void setDateConsultation(LocalDate dateConsultation) {
+		this.dateConsultation = dateConsultation;
 	}
 
     // Getters & Setters

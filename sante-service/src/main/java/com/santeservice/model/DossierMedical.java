@@ -1,6 +1,8 @@
 package com.santeservice.model;
 
 import jakarta.persistence.*;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -9,18 +11,17 @@ public class DossierMedical {
 
     @Id
     private String numeroDossier;
-
-    private String idEtudiant;
     private String idSecretaire;
     private String antecedent;
     private String groupeSanguin;
     private String vaccination;
 
-    @OneToMany(mappedBy = "dossierMedical", cascade = CascadeType.ALL)
-    private List<Consultation> consultations;
+    @OneToMany(mappedBy = "dossierMedical", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Consultation> consultations = new ArrayList<>();
 
-    @OneToMany(mappedBy = "dossierMedical", cascade = CascadeType.ALL)
-    private List<MesuresMedicale> mesures;
+    @OneToMany(mappedBy = "dossierMedical", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<MesuresMedicale> mesures = new ArrayList<>();
+
 
 	public String getNumeroDossier() {
 		return numeroDossier;
@@ -30,14 +31,7 @@ public class DossierMedical {
 		this.numeroDossier = numeroDossier;
 	}
 
-	public String getIdEtudiant() {
-		return idEtudiant;
-	}
-
-	public void setIdEtudiant(String idEtudiant) {
-		this.idEtudiant = idEtudiant;
-	}
-
+	
 	public String getIdSecretaire() {
 		return idSecretaire;
 	}
@@ -84,8 +78,5 @@ public class DossierMedical {
 
 	public void setMesures(List<MesuresMedicale> mesures) {
 		this.mesures = mesures;
-	}
-
-    // Getters & Setters
-    
+	}  
 }

@@ -1,12 +1,13 @@
 package com.santeservice.dto;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class MesureDTO {
 
     private Integer idMesure;
-    private Date dateMesure;
-    private Float poids;
+    private LocalDate dateMesure;
+	private Float poids;
     private Float taille;
     private String tensionArterielle;
     private Integer pouls;
@@ -17,12 +18,7 @@ public class MesureDTO {
 	public void setIdMesure(Integer idMesure) {
 		this.idMesure = idMesure;
 	}
-	public Date getDateMesure() {
-		return dateMesure;
-	}
-	public void setDateMesure(Date dateMesure) {
-		this.dateMesure = dateMesure;
-	}
+	
 	public Float getPoids() {
 		return poids;
 	}
@@ -52,6 +48,12 @@ public class MesureDTO {
 	}
 	public void setNumeroDossier(String numeroDossier) {
 		this.numeroDossier = numeroDossier;
+	}
+	public LocalDate getDateMesure() {
+		return dateMesure;
+	}
+	public void setDateMesure(LocalDate dateMesure) {
+		this.dateMesure = dateMesure;
 	}
 
     // Getters & Setters

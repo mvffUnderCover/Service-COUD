@@ -1,40 +1,24 @@
-package com.etudiants.model;
+package com.santeservice.dto;
 
-import jakarta.persistence.*;
-import lombok.*;
 
-@Entity
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-public class Etudiant {
 
-    @Id
-    private String numcarte;
-    private String prenom;
+public class UtilisateurDTO {
+	private String immatricul;
     private String nom;
+    private String prenom;
     private String email;
-    private String telephone;
+    private String role;
     private String faculte;
     private String dateLieuNaissance;
     private String situationFamiliale;
-    private String role = "ETUDIANT";
-    
-    @Column(name = "nombre_enfants", nullable = true)
     private Integer nombreEnfants;
     private String niveauEtude;
-
-	public String getNumcarte() {
-		return numcarte;
+    // autres champs selon besoin
+	public String getImmatricul() {
+		return immatricul;
 	}
-	public void setNumcarte(String numcarte) {
-		this.numcarte = numcarte;
-	}
-	public String getPrenom() {
-		return prenom;
-	}
-	public void setPrenom(String prenom) {
-		this.prenom = prenom;
+	public void setImmatricul(String immatricul) {
+		this.immatricul = immatricul;
 	}
 	public String getNom() {
 		return nom;
@@ -42,17 +26,23 @@ public class Etudiant {
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
+	public String getPrenom() {
+		return prenom;
+	}
+	public void setPrenom(String prenom) {
+		this.prenom = prenom;
+	}
 	public String getEmail() {
 		return email;
 	}
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getTelephone() {
-		return telephone;
+	public String getRole() {
+		return role;
 	}
-	public void setTelephone(String telephone) {
-		this.telephone = telephone;
+	public void setRole(String role) {
+		this.role = role;
 	}
 	public String getFaculte() {
 		return faculte;
@@ -84,12 +74,5 @@ public class Etudiant {
 	public void setNiveauEtude(String niveauEtude) {
 		this.niveauEtude = niveauEtude;
 	}
-	public String getRole() {
-		return role;
-	}
-	public void setRole(String role) {
-		this.role = role;
-	}
-    
-    
+	
 }

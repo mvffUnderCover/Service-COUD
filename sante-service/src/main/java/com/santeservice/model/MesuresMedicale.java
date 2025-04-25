@@ -1,7 +1,11 @@
 package com.santeservice.model;
 
 import jakarta.persistence.*;
-import java.util.Date;
+
+import java.time.LocalDate;
+
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "mesures_medicales")
@@ -11,14 +15,22 @@ public class MesuresMedicale {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idMesure;
 
-    @Temporal(TemporalType.DATE)
-    private Date dateMesure;
+    private LocalDate dateMesure;
 
-    private Float poids;
+    public LocalDate getDateMesure() {
+		return dateMesure;
+	}
+
+	public void setDateMesure(LocalDate dateMesure) {
+		this.dateMesure = dateMesure;
+	}
+
+	private Float poids;
     private Float taille;
     private String tensionArterielle;
     private Integer pouls;
-
+    
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "numero_dossier")
     private DossierMedical dossierMedical;
@@ -31,13 +43,7 @@ public class MesuresMedicale {
 		this.idMesure = idMesure;
 	}
 
-	public Date getDateMesure() {
-		return dateMesure;
-	}
-
-	public void setDateMesure(Date dateMesure) {
-		this.dateMesure = dateMesure;
-	}
+	
 
 	public Float getPoids() {
 		return poids;

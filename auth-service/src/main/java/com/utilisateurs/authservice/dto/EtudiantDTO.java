@@ -1,16 +1,10 @@
-package com.etudiants.model;
+package com.utilisateurs.authservice.dto;
 
-import jakarta.persistence.*;
-import lombok.*;
 
-@Entity
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-public class Etudiant {
 
-    @Id
-    private String numcarte;
+public class EtudiantDTO implements UtilisateurCommunDTO {
+	
+	private String numcarte;
     private String prenom;
     private String nom;
     private String email;
@@ -18,12 +12,9 @@ public class Etudiant {
     private String faculte;
     private String dateLieuNaissance;
     private String situationFamiliale;
-    private String role = "ETUDIANT";
-    
-    @Column(name = "nombre_enfants", nullable = true)
     private Integer nombreEnfants;
     private String niveauEtude;
-
+    private String role;
 	public String getNumcarte() {
 		return numcarte;
 	}
@@ -92,4 +83,5 @@ public class Etudiant {
 	}
     
     
+
 }

@@ -34,7 +34,7 @@ public class EtudiantService {
         return repository.findByEmail(email);
     }
 
-    // UPDATE
+ // UPDATE 
     public Etudiant modifierEtudiant(String numcarte, Etudiant etudiantModifie) {
         return repository.findById(numcarte)
                 .map(e -> {
@@ -43,6 +43,13 @@ public class EtudiantService {
                     e.setEmail(etudiantModifie.getEmail());
                     e.setTelephone(etudiantModifie.getTelephone());
                     e.setFaculte(etudiantModifie.getFaculte());
+
+                    // Nouveaux champs ajoutés
+                    e.setDateLieuNaissance(etudiantModifie.getDateLieuNaissance());
+                    e.setSituationFamiliale(etudiantModifie.getSituationFamiliale());
+                    e.setNombreEnfants(etudiantModifie.getNombreEnfants());
+                    e.setNiveauEtude(etudiantModifie.getNiveauEtude());
+
                     return repository.save(e);
                 })
                 .orElseThrow(() -> new RuntimeException("Étudiant non trouvé"));

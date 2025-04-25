@@ -1,9 +1,14 @@
 package com.utilisateurs.authservice.service;
 
+import com.utilisateurs.authservice.dto.EtudiantDTO;
 import com.utilisateurs.authservice.dto.UpdateEmployeRequest;
 import com.utilisateurs.authservice.dto.UpdatePasswordRequest;
+import com.utilisateurs.authservice.dto.UtilisateurCommunDTO;
+import com.utilisateurs.authservice.dto.UtilisateurDto;
+import com.utilisateurs.authservice.feign.DisiClient;
 import com.utilisateurs.authservice.model.*;
 import com.utilisateurs.authservice.repository.*;
+import com.utilisateurs.authservice.util.ServiceMap;
 
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,16 +29,28 @@ public class UtilisateurService {
 
     @Autowired
     private AuthentificationRepository authentificationRepository;
+    
+    @Autowired
+    private DisiClient disiMockClient;
 
     // 1. Lister tous les employés
     public List<Utilisateur> getAllEmployes() {
         return utilisateurRepository.findAll();
     }
 
-    // 2. Rechercher un employé par immatricul
-    public Optional<Utilisateur> getEmployeByImmatricul(String immatricul) {
-        return utilisateurRepository.findById(immatricul);
+    // 2. Rechercher un employé ou un étudiant par immatricul
+    public Optional<UtilisateurCommunDTO> getUtilisateurByImmatricul(String immatricul) {
+        if (Character.isLetter(immatricul.charAt(0))) {
+            // Employé
+            return utilisateurRepository.findById(immatricul)
+                    .map(ServiceMap::mapToDto);
+        } else {
+            // Étudiant
+            EtudiantDTO etudiant = disiMockClient.getByNumCarte(immatricul);
+            return Optional.ofNullable(etudiant);
+        }
     }
+
 
     // 3. Ajouter un utilisateur employé + création automatique Authentification
     public Utilisateur addEmploye(Utilisateur utilisateur, int idRole) {

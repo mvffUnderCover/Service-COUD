@@ -1,12 +1,13 @@
 package com.santeservice.dto;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class ConsultationDTO {
 
     private Integer idConsultation;
     private String idMedecin;
-    private Date dateConsultation;
+    private LocalDate dateConsultation;
     private String examens;
     private String traitements;
     private String numeroDossier;
@@ -22,12 +23,7 @@ public class ConsultationDTO {
 	public void setIdMedecin(String idMedecin) {
 		this.idMedecin = idMedecin;
 	}
-	public Date getDateConsultation() {
-		return dateConsultation;
-	}
-	public void setDateConsultation(Date dateConsultation) {
-		this.dateConsultation = dateConsultation;
-	}
+		
 	
 	public String getTraitements() {
 		return traitements;
@@ -46,6 +42,12 @@ public class ConsultationDTO {
 	}
 	public void setExamens(String examens) {
 		this.examens = examens;
+	}
+	public LocalDate getDateConsultation() {
+		return dateConsultation;
+	}
+	public void setDateConsultation(LocalDate dateConsultation) {
+		this.dateConsultation = dateConsultation;
 	}
 
     // Getters & Setters

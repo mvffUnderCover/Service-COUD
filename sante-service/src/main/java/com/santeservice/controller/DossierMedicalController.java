@@ -41,7 +41,7 @@ public class DossierMedicalController {
         return ResponseEntity.ok(dossierMedicalService.getByNumero(numero));
     }
 
-    // ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+    // ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓ 
     // ░░ MESURES MÉDICALES
     // ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 

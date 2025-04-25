@@ -3,6 +3,8 @@ package com.utilisateurs.authservice.controller;
 
 import com.utilisateurs.authservice.dto.UpdateEmployeRequest;
 import com.utilisateurs.authservice.dto.UpdatePasswordRequest;
+import com.utilisateurs.authservice.dto.UtilisateurCommunDTO;
+import com.utilisateurs.authservice.dto.UtilisateurDto;
 import com.utilisateurs.authservice.model.Utilisateur;
 import com.utilisateurs.authservice.service.UtilisateurService;
 
@@ -29,13 +31,10 @@ public class UtilisateurController {
 
     // Rechercher un employé par immatricul
     @GetMapping("/{immatricul}")
-    public ResponseEntity<Optional<Utilisateur>> getEmploye(@PathVariable String immatricul) {
-        try {
-            Optional<Utilisateur> employe = utilisateurService.getEmployeByImmatricul(immatricul);
-            return ResponseEntity.ok(employe);
-        } catch (EntityNotFoundException e) {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<UtilisateurCommunDTO> getUtilisateurById(@PathVariable("immatricul") String immatricul) {
+        return utilisateurService.getUtilisateurByImmatricul(immatricul)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
     // Ajouter un employé
