@@ -2,6 +2,8 @@ package com.techservice.model;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -28,7 +30,8 @@ public class DemandeDepannage {
     private String description;
 
     private String statu;
-
+    
+    @JsonIgnore
     @OneToOne(mappedBy = "demande", cascade = CascadeType.ALL)
     private BonDeTravail bonDeTravail;
 

@@ -15,7 +15,8 @@ public class BonDeTravail {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_bon_travail")
     private Integer idBonDeTravail;
-
+    
+    @JsonIgnore
     @OneToOne
     @JoinColumn(name = "id_demande")
     private DemandeDepannage demande;
@@ -49,7 +50,8 @@ public class BonDeTravail {
 
     @Column(name = "cree_par")
     private String creePar;
-
+    
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "id_section")
     private Section section;
