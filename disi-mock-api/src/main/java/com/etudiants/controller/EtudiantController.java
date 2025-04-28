@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/etudiants")
+@RequestMapping("/disi")
 @CrossOrigin(origins = "*")
 public class EtudiantController {
 
@@ -21,19 +21,19 @@ public class EtudiantController {
     private EtudiantRepository etudiantRepository;
 
     // GET ALL
-    @GetMapping
+    @GetMapping("/etudiants")
     public List<Etudiant> getAll() {
         return service.listerEtudiants();
     }
 
     // GET by numcarte
-    @GetMapping("/{numcarte}")
+    @GetMapping("/etudiants/{numcarte}")
     public Optional<Etudiant> getByNumCarte(@PathVariable String numcarte) {
         return service.chercherParNumCarte(numcarte);
     }
 
     // GET by email
-    @GetMapping("/email/{email}")
+    @GetMapping("/etudiants/email/{email}")
     public Optional<Etudiant> getByEmail(@PathVariable String email) {
         return service.chercherParEmail(email);
     }
@@ -51,7 +51,7 @@ public class EtudiantController {
     }
 
     // UPDATE
-    @PutMapping("/{numcarte}")
+    @PutMapping("/etudiants/{numcarte}")
     public Etudiant update(@PathVariable String numcarte, @RequestBody Etudiant etudiant) {
         return service.modifierEtudiant(numcarte, etudiant);
     }

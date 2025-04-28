@@ -8,8 +8,8 @@ import com.utilisateurs.authservice.dto.EtudiantDTO;
 @FeignClient(name = "disi-mock-api", url = "http://localhost:8082")
 public interface DisiClient {
 
-    @PostMapping("/api/etudiants/validate")
+    @PostMapping("/disi/validate")
     boolean validateEtudiant(@RequestParam String email, @RequestParam String numcarte);
-    @GetMapping("/api/etudiants/{numcarte}")
+    @GetMapping("/disi/etudiants/{numcarte}")
     EtudiantDTO getByNumCarte(@PathVariable("numcarte") String numcarte);
 }

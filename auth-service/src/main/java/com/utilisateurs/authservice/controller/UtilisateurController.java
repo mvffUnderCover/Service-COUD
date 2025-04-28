@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/utilisateurs")
+@RequestMapping("/auth/utilisateurs")
 public class UtilisateurController {
   
     @Autowired

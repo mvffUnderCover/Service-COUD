@@ -18,7 +18,7 @@ import com.techservice.service.AvisService;
 
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/tech")
 public class AvisController {
 
     @Autowired

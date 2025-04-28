@@ -9,7 +9,7 @@ import com.santeservice.dto.UtilisateurDTO;
 @FeignClient(name = "auth-service", url = "http://localhost:8081") // ou utilise le nom du service si tu fais du service discovery
 public interface AuthClient {
 
-	@GetMapping("/api/utilisateurs/{id}")
+	@GetMapping("/auth/utilisateurs/{id}")
     UtilisateurDTO getUtilisateurById(@PathVariable String id);
 }
 

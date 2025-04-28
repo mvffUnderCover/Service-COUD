@@ -20,7 +20,7 @@ import com.techservice.model.DemandeDepannage;
 import com.techservice.service.DemandeDepannageService;
 
 @RestController
-@RequestMapping("/api/demandes")
+@RequestMapping("/tech/demandes")
 public class DemandeDepannageController {
 
     @Autowired

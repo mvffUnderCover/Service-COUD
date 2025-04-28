@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/bons-travail")
+@RequestMapping("/tech/bons-travail")
 public class BonDeTravailController {
 
     @Autowired
