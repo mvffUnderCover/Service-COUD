@@ -27,7 +27,7 @@ public class AuthentificationService {
     @Autowired
     private JwtUtils jwtUtils;
 
-    @Transactional
+   @Transactional
     public LoginResponse login(UnifiedLoginRequest request) {
         String identifiant = request.getIdentifiant();
         String motDePasse = request.getMotDePasse();
@@ -73,12 +73,12 @@ public class AuthentificationService {
             throw new RuntimeException("Échec d'authentification : informations étudiantes incorrectes");
         }
 
-        String token = jwtUtils.generateToken(request.getEmail(), "ETUDIANT");
+        String token = jwtUtils.generateToken(request.getNumcarte(), "ETUDIANT");
 
         return new LoginResponse(
                 token,
                 "ETUDIANT",
-                request.getEmail(),
+                request.getNumcarte(),
                 LocalDateTime.now().plusHours(2).format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)
         );
     }

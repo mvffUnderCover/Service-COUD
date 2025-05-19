@@ -11,7 +11,6 @@ import java.util.List;
                                   
 @RestController
 @RequestMapping("/sante")
-@CrossOrigin(origins = "*")
 public class DossierMedicalController {
 
     private final DossierMedicalService dossierMedicalService;
@@ -41,9 +40,6 @@ public class DossierMedicalController {
         return ResponseEntity.ok(dossierMedicalService.getByNumero(numero));
     }
 
-    // ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓ 
-    // ░░ MESURES MÉDICALES
-    // ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 
     @PostMapping("/dossiers/{numero}/mesures")
     public ResponseEntity<MesureDTO> addMesure(
@@ -63,11 +59,6 @@ public class DossierMedicalController {
             @RequestBody MesureDTO dto) {
         return ResponseEntity.ok(dossierMedicalService.updateMesure(numero, id, dto));
     }
-
-
-    // ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
-    // ░░ CONSULTATIONS
-    // ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 
     @PostMapping("/dossiers/{numero}/consultations")
     public ResponseEntity<ConsultationDTO> addConsultation(

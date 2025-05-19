@@ -10,8 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/auth/roles")
-@CrossOrigin(origins = "*") // à adapter selon ton front
+@RequestMapping("/auth/roles")// à adapter selon ton front
 public class RoleController {
 
     @Autowired

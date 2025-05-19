@@ -1,5 +1,6 @@
 package com.santeservice.dto;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,13 +11,15 @@ public class DossierMedicalDTO {
     private String nom;
     private String prenom;
     private String niveauEtude;
-    private String dateLieuNaissance;
+    private String dateLieuNaissance; 
     private String situationFamiliale;
+    private LocalDate dateCreationDossier;
     private Integer nombreEnfants;
     private String antecedent;
     private String groupeSanguin;
     private String vaccination;
-    
+    private List<ConsultationDTO> consultations = new ArrayList<>();
+    private List<MesureDTO> mesures = new ArrayList<>();;
 
     public List<ConsultationDTO> getConsultations() {
 		return consultations;
@@ -30,8 +33,7 @@ public class DossierMedicalDTO {
 	public void setMesures(List<MesureDTO> mesures) {
 		this.mesures = mesures;
 	}
-	private List<ConsultationDTO> consultations = new ArrayList<>();
-    private List<MesureDTO> mesures = new ArrayList<>();;
+	
    
 	public String getNumeroDossier() {
 		return numeroDossier;
@@ -99,6 +101,12 @@ public class DossierMedicalDTO {
 	}
 	public void setNombreEnfants(Integer nombreEnfants) {
 		this.nombreEnfants = nombreEnfants;
+	}
+	public LocalDate getDateCreationDossier() {
+		return dateCreationDossier;
+	}
+	public void setDateCreationDossier(LocalDate dateCreationDossier) {
+		this.dateCreationDossier = dateCreationDossier;
 	}
     
 }

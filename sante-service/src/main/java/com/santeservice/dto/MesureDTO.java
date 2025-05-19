@@ -7,6 +7,7 @@ public class MesureDTO {
 
     private Integer idMesure;
     private LocalDate dateMesure;
+    private String idMedecin;
 	private Float poids;
     private Float taille;
     private String tensionArterielle;
@@ -54,6 +55,12 @@ public class MesureDTO {
 	}
 	public void setDateMesure(LocalDate dateMesure) {
 		this.dateMesure = dateMesure;
+	}
+	public String getIdMedecin() {
+		return idMedecin;
+	}
+	public void setIdMedecin(String idMedecin) {
+		this.idMedecin = idMedecin;
 	}
 
     // Getters & Setters

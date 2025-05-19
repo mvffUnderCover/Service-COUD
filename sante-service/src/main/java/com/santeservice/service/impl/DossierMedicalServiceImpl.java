@@ -60,6 +60,7 @@ public class DossierMedicalServiceImpl implements DossierMedicalService {
         DossierMedical dossier = new DossierMedical();
         dossier.setNumeroDossier(idEtudiant); // obligatoire puisque pas auto-généré
         dossier.setIdSecretaire(dto.getIdSecretaire());
+        dossier.setDateCreation(LocalDate.now());
         dossier.setAntecedent(""); // vide par défaut
         dossier.setGroupeSanguin("");
         dossier.setVaccination("");
@@ -78,6 +79,7 @@ public class DossierMedicalServiceImpl implements DossierMedicalService {
     public DossierMedicalDTO update(String numeroDossier, DossierMedicalDTO dto) {
         DossierMedical existing = repository.findById(numeroDossier).orElseThrow();
         existing.setAntecedent(dto.getAntecedent());
+        existing.setGroupeSanguin(dto.getGroupeSanguin());
         existing.setVaccination(dto.getVaccination());
         return servicemap.toDto(repository.save(existing));
     }
@@ -153,7 +155,7 @@ public class DossierMedicalServiceImpl implements DossierMedicalService {
             throw new IllegalStateException("Consultation non liée à ce dossier.");
         }
 
-        consultation.setDateConsultation(dto.getDateConsultation());
+        consultation.setDateConsultation(LocalDate.now());
         consultation.setExamens(dto.getExamens());
         consultation.setTraitements(dto.getTraitements());
         consultation.setIdMedecin(dto.getIdMedecin());
@@ -173,6 +175,7 @@ public class DossierMedicalServiceImpl implements DossierMedicalService {
         MesuresMedicale mesure = new MesuresMedicale();
         mesure.setDossierMedical(dossier);
         mesure.setDateMesure(LocalDate.now());
+        mesure.setIdMedecin(dto.getIdMedecin());
         mesure.setPoids(dto.getPoids());
         mesure.setTaille(dto.getTaille());
         mesure.setTensionArterielle(dto.getTensionArterielle());
@@ -215,7 +218,7 @@ public class DossierMedicalServiceImpl implements DossierMedicalService {
             throw new IllegalStateException("Mesure non liée à ce dossier médical.");
         }
 
-        mesure.setDateMesure(dto.getDateMesure());
+        mesure.setDateMesure(LocalDate.now());
         mesure.setPoids(dto.getPoids());
         mesure.setTaille(dto.getTaille());
         mesure.setTensionArterielle(dto.getTensionArterielle());

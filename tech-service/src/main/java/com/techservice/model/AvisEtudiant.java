@@ -22,7 +22,6 @@ public class AvisEtudiant {
     @ManyToOne
     @JoinColumn(name = "id_bon_de_travail")
     //@JsonIgnoreProperties("avisEtudiants")
-    @JsonIgnore
     private BonDeTravail bonDeTravail;
 
     public AvisEtudiant() {}

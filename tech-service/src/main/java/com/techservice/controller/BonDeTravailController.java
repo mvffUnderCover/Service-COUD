@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+
 @RestController
 @RequestMapping("/tech/bons-travail")
 public class BonDeTravailController {
@@ -34,7 +35,6 @@ public class BonDeTravailController {
             .orElse(ResponseEntity.notFound().build());
     }
 
-    // ✅ Création de bon avec BonDeTravailRequest (idDemande, idChefDeResidence)
     @PostMapping("/creer")
     public ResponseEntity<BonDeTravail> creerBon(@RequestBody BonDeTravailRequest request) {
         BonDeTravail bon = service.creerBon(

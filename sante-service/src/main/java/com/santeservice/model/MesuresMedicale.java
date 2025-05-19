@@ -14,17 +14,8 @@ public class MesuresMedicale {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idMesure;
-
+    private String idMedecin; 
     private LocalDate dateMesure;
-
-    public LocalDate getDateMesure() {
-		return dateMesure;
-	}
-
-	public void setDateMesure(LocalDate dateMesure) {
-		this.dateMesure = dateMesure;
-	}
-
 	private Float poids;
     private Float taille;
     private String tensionArterielle;
@@ -43,7 +34,13 @@ public class MesuresMedicale {
 		this.idMesure = idMesure;
 	}
 
-	
+	public LocalDate getDateMesure() {
+		return dateMesure;
+	}
+
+	public void setDateMesure(LocalDate dateMesure) {
+		this.dateMesure = dateMesure;
+	}
 
 	public Float getPoids() {
 		return poids;
@@ -83,6 +80,14 @@ public class MesuresMedicale {
 
 	public void setDossierMedical(DossierMedical dossierMedical) {
 		this.dossierMedical = dossierMedical;
+	}
+
+	public String getIdMedecin() {
+		return idMedecin;
+	}
+
+	public void setIdMedecin(String idMedecin) {
+		this.idMedecin = idMedecin;
 	}
 
     // Getters & Setters

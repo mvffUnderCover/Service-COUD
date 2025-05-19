@@ -7,10 +7,10 @@ public class LoginResponse {
     private String immatricul;
     private String duree;
 
-    public LoginResponse(String token, String role, String email, String duree) {
+    public LoginResponse(String token, String role, String numcarte, String duree) {
         this.token = token;
         this.role = role;
-        this.immatricul = email;
+        this.immatricul = numcarte;
         this.duree = duree;
     }
 

@@ -11,7 +11,6 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/disi")
-@CrossOrigin(origins = "*")
 public class EtudiantController {
 
     @Autowired

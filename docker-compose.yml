@@ -1,0 +1,114 @@
+version: '3.8'
+
+services:
+  postgres-db:
+    image: postgres:16
+    container_name: postgres-db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: matar
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - backend
+    restart: unless-stopped
+
+  serverconfig-service:
+    container_name: serverconfig-service
+    build:
+      context: ./serverconfig-service
+    ports:
+      - "9100:9100"
+    environment:
+      - GIT_USERNAME=mvffUnderCover
+      - GIT_PASSWORD=1997Cisse@
+    networks:
+      - backend
+
+  server-eureka:
+    container_name: server-eureka
+    build:
+      context: ./server-eureka
+    ports:
+      - "9102:9102"
+    depends_on:
+      - serverconfig-service
+    networks:
+      - backend
+
+  auth-service:
+    container_name: auth-service
+    build:
+      context: ./auth-service
+    ports:
+      - "8081:8081"
+    depends_on:
+      - serverconfig-service
+      - server-eureka
+      - postgres-db
+    networks:
+      - backend
+
+  disi-mock-api:
+    container_name: disi-mock-api
+    build:
+      context: ./disi-mock-api
+    ports:
+      - "8082:8082"
+    depends_on:
+      - serverconfig-service
+      - server-eureka
+      - postgres-db
+    networks:
+      - backend
+
+  tech-service:
+    container_name: tech-service
+    build:
+      context: ./tech-service
+    ports:
+      - "8083:8083"
+    depends_on:
+      - serverconfig-service
+      - auth-service
+      - postgres-db
+    networks:
+      - backend
+
+  sante-service:
+    container_name: sante-service
+    build:
+      context: ./sante-service
+    ports:
+      - "8084:8084"
+    depends_on:
+      - serverconfig-service
+      - auth-service
+      - postgres-db
+    networks:
+      - backend
+
+  api-gateway:
+    container_name: api-gateway
+    build:
+      context: ./api-gateway
+    ports:
+      - "9000:9000"
+    depends_on:
+      - serverconfig-service
+      - auth-service
+      - tech-service
+      - sante-service
+      - disi-mock-api
+      - server-eureka
+    networks:
+      - backend
+
+volumes:
+  postgres-data:
+
+networks:
+  backend:
+    driver: bridge

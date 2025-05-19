@@ -12,6 +12,7 @@ public class MesureMapper {
         if (entity == null) return null;
 
         MesureDTO dto = new MesureDTO();
+        dto.setIdMedecin(entity.getIdMedecin());
         dto.setIdMesure(entity.getIdMesure());
         dto.setDateMesure(entity.getDateMesure());
         dto.setPoids(entity.getPoids());

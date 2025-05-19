@@ -54,10 +54,9 @@ public class BonDeTravailService {
         DemandeDepannage demande = demandeRepo.findById(demandeId)
             .orElseThrow(() -> new RuntimeException("Demande non trouvée"));
 
-        if (!"Traité".equalsIgnoreCase(demande.getStatu())) {
+        if (!"En cours de traitement".equalsIgnoreCase(demande.getStatu())) {
             throw new RuntimeException("La demande doit être acceptée avant de créer un bon.");
         }
-
         BonDeTravail bon = new BonDeTravail();
         bon.setDemande(demande);
         bon.setEtat("Crée");
@@ -69,7 +68,6 @@ public class BonDeTravailService {
 
         return repository.save(bon);
     }
-
 
     // ✅ Affecter une section au bon
     public BonDeTravail affecterSection(Integer bonId, Integer idSection) {

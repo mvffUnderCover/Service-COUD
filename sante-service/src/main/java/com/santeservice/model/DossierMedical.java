@@ -2,6 +2,7 @@ package com.santeservice.model;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +16,7 @@ public class DossierMedical {
     private String antecedent;
     private String groupeSanguin;
     private String vaccination;
+    private LocalDate dateCreation;
 
     @OneToMany(mappedBy = "dossierMedical", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Consultation> consultations = new ArrayList<>();
@@ -78,5 +80,13 @@ public class DossierMedical {
 
 	public void setMesures(List<MesuresMedicale> mesures) {
 		this.mesures = mesures;
+	}
+
+	public LocalDate getDateCreation() {
+		return dateCreation;
+	}
+
+	public void setDateCreation(LocalDate dateCreation) {
+		this.dateCreation = dateCreation;
 	}  
 }

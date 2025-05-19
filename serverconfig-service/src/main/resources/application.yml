@@ -1,0 +1,25 @@
+server:
+  port: 9100
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh, health, info
+
+  endpoint:
+    health:
+      show-details: always
+
+spring:
+  application:
+    name: serverconfig-service
+
+  cloud:
+    compatibility-verifier:
+      enabled: false
+
+    config:
+      server:
+        git:
+          uri: https://github.com/mvffUnderCover/depos-config-microservices.git

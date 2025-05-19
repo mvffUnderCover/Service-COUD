@@ -1,0 +1,4 @@
+CREATE DATABASE auth_service_db;
+CREATE DATABASE api_etudiant_ucad;
+CREATE DATABASE tech_service_db;
+CREATE DATABASE sante_service_db;

@@ -29,7 +29,9 @@ public class DemandeDepannage {
 
     private String description;
 
-    private String statu;
+    @Column(name = "statu", nullable = false)
+    private String statu = "En attente"; // Valeur par défaut
+
     
     @JsonIgnore
     @OneToOne(mappedBy = "demande", cascade = CascadeType.ALL)

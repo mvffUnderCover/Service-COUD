@@ -8,7 +8,7 @@ public class UtilisateurDTO {
     private String email;
     private String telephone;
     private String departement;
-    private RoleDTO role;
+    private String role;
    
     
     // Getters et Setters
@@ -74,32 +74,16 @@ public class UtilisateurDTO {
 	}
 
 
-	public RoleDTO getRole() {
+	
+
+
+	public String getRole() {
 		return role;
 	}
 
 
-	public void setRole(RoleDTO role) {
+	public void setRole(String role) {
 		this.role = role;
 	}
 
-
-	public static class RoleDTO {
-        public int getId() {
-			return id;
-		}
-		public void setId(int id) {
-			this.id = id;
-		}
-		public String getNom() {
-			return nom;
-		}
-		public void setNom(String nom) {
-			this.nom = nom;
-		}
-		private int id;
-        private String nom;
-
-        // Getters et Setters
-    }
 }

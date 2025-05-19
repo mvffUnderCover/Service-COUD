@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: server-eureka
+  config:
+    import: optional:configserver:http://serverconfig-service:9100
+
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: false

@@ -16,6 +16,7 @@ public class DossierMedicalMapper {
 
         // Depuis l'entité
         dto.setNumeroDossier(entity.getNumeroDossier());
+        dto.setDateCreationDossier(entity.getDateCreation());
         dto.setIdSecretaire(entity.getIdSecretaire());
         dto.setAntecedent(entity.getAntecedent());
         dto.setGroupeSanguin(entity.getGroupeSanguin());

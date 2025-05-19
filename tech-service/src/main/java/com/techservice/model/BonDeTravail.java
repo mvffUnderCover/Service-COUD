@@ -51,7 +51,6 @@ public class BonDeTravail {
     @Column(name = "cree_par")
     private String creePar;
     
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "id_section")
     private Section section;

@@ -76,6 +76,10 @@ public class UtilisateurService {
 
         return savedUser;
     }
+    
+    public List<Utilisateur> getUtilisateursByRoleId(int roleId) {
+        return utilisateurRepository.findByRoleId(roleId);
+    }
 
 
 

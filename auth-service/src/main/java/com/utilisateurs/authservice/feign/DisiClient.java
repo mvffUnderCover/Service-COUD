@@ -5,7 +5,8 @@ import org.springframework.web.bind.annotation.*;
 
 import com.utilisateurs.authservice.dto.EtudiantDTO;
 
-@FeignClient(name = "disi-mock-api", url = "http://localhost:8082")
+
+@FeignClient(name = "disi-mock-api") //url = "http://localhost:8082";
 public interface DisiClient {
 
     @PostMapping("/disi/validate")

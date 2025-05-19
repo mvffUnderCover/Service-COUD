@@ -57,6 +57,13 @@ public class UtilisateurController {
             Utilisateur updated = utilisateurService.updateEmploye(immatricul, request);
             return ResponseEntity.ok(updated);
     }
+    //Les utilisateurs selon leurs roles
+    @GetMapping("/roles/{roleId}")
+    public List<Utilisateur> getUtilisateursByRole(@PathVariable int roleId) {
+        return utilisateurService.getUtilisateursByRoleId(roleId);
+    }
+
+    
     @PutMapping("/{immatricul}/motdepasse")
     public ResponseEntity<?> updatePassword(@PathVariable String immatricul, @RequestBody UpdatePasswordRequest request) {
 
