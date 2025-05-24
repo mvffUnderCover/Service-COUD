@@ -2,6 +2,7 @@ package com.santeservice.controller;
 
 import com.santeservice.dto.ConsultationDTO;
 import com.santeservice.dto.DossierMedicalDTO;
+import com.santeservice.dto.HistoriqueConsultationDTO;
 import com.santeservice.dto.MesureDTO;
 import com.santeservice.service.DossierMedicalService;
 import org.springframework.http.ResponseEntity;
@@ -18,10 +19,6 @@ public class DossierMedicalController {
     public DossierMedicalController(DossierMedicalService dossierMedicalService) {
         this.dossierMedicalService = dossierMedicalService;
     }
-
-    // ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
-    // ░░ GESTION DOSSIER
-    // ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 
     @PostMapping("/dossiers")
     public ResponseEntity<DossierMedicalDTO> createDossier(@RequestBody DossierMedicalDTO dto) {
@@ -78,5 +75,10 @@ public class DossierMedicalController {
             @RequestBody ConsultationDTO dto) {
         return ResponseEntity.ok(dossierMedicalService.updateConsultation(numero, id, dto));
     }
+    @GetMapping("/historique-consultations")
+    public ResponseEntity<List<HistoriqueConsultationDTO>> getHistoriqueConsultations() {
+        return ResponseEntity.ok(dossierMedicalService.getHistoriqueConsultations());
+    }
+
 
 }

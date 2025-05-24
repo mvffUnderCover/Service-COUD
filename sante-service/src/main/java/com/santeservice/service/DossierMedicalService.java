@@ -2,6 +2,7 @@ package com.santeservice.service;
 
 import com.santeservice.dto.ConsultationDTO;
 import com.santeservice.dto.DossierMedicalDTO;
+import com.santeservice.dto.HistoriqueConsultationDTO;
 import com.santeservice.dto.MesureDTO;
 
 import java.util.List;
@@ -22,4 +23,8 @@ public interface DossierMedicalService {
     MesureDTO addMesure(String numeroDossier, MesureDTO mesureDTO);
     List<MesureDTO> getMesuresByDossier(String numeroDossier);
     MesureDTO updateMesure(String numeroDossier, Integer id, MesureDTO dto);
+    
+    //Historique des consultation
+    List<HistoriqueConsultationDTO> getHistoriqueConsultations();
+
 }

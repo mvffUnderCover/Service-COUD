@@ -12,6 +12,7 @@ public class BonDeTravailMapper {
     public BonDeTravailResponseDTO mapToDto(BonDeTravail bon) {
         BonDeTravailResponseDTO dto = new BonDeTravailResponseDTO();
         dto.setIdBonDeTravail(bon.getIdBonDeTravail());
+        dto.setIdDemande(bon.getDemande().getIdDemande());
         dto.setEtat(bon.getEtat());
         dto.setNomSection(bon.getSection() != null ? bon.getSection().getNomSection() : null);
         dto.setDescriptionTravail(bon.getDescriptionTravail());
@@ -23,6 +24,7 @@ public class BonDeTravailMapper {
     public BonDeTravailResponseDTO mapToResponseDTO(BonDeTravail bon) {
         BonDeTravailResponseDTO dto = new BonDeTravailResponseDTO();
         dto.setIdBonDeTravail(bon.getIdBonDeTravail());
+        dto.setIdDemande(bon.getDemande().getIdDemande());
         dto.setEtat(bon.getEtat());
         dto.setDescriptionTravail(bon.getDescriptionTravail());
         dto.setLieuIntervention(bon.getLieuIntervention());
@@ -35,6 +37,7 @@ public class BonDeTravailMapper {
     public BonDeTravailResponseDTO mapToResponseClotureDTO(BonDeTravail bon) {
         BonDeTravailResponseDTO dto = new BonDeTravailResponseDTO();
         dto.setIdBonDeTravail(bon.getIdBonDeTravail());
+        dto.setIdDemande(bon.getDemande().getIdDemande());
         dto.setEtat(bon.getEtat());
         dto.setDescriptionTravail(bon.getDescriptionTravail());
         dto.setLieuIntervention(bon.getLieuIntervention());

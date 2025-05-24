@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.techservice.dto.AvisEtudiantRequestDTO;
+import com.techservice.dto.AvisResponseDTO;
 import com.techservice.model.AvisEtudiant;
 import com.techservice.service.AvisService;
 
@@ -23,9 +24,19 @@ public class AvisController {
 
     @Autowired
     private AvisService service;
+    
+    @GetMapping("/avis")
+    public ResponseEntity<List<AvisResponseDTO>> getAllAvisEnrichis() {
+        List<AvisResponseDTO> avisDTOs = service.getAllAvisEnrichis();
+        if (avisDTOs.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(avisDTOs);
+    }
+
 
     @PostMapping("/avis/envoyer")
-    public AvisEtudiant envoyer(@RequestBody AvisEtudiant avis) {
+    public ResponseEntity<AvisEtudiant> envoyer(@RequestBody AvisEtudiantRequestDTO avis) {
         return service.envoyerAvis(avis);
     }
 

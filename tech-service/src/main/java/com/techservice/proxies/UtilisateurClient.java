@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import com.techservice.dto.*;
 
-@FeignClient(name = "auth-service") // adapte si différent,  url = "http://localhost:8081"
+@FeignClient(name = "auth-service")
 public interface UtilisateurClient {
 
 	@GetMapping("/auth/utilisateurs/{id}")

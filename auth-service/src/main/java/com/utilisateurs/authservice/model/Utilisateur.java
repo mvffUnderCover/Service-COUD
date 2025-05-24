@@ -23,6 +23,8 @@ public class Utilisateur {
 
     private String departement;
     
+    private Integer idSection; // ID provenant de tech-service
+    
     //@Column(name = "unite_organisationnelle")
     //private String uniteOrganisationnelle;
 
@@ -99,6 +101,14 @@ public class Utilisateur {
     public void setAuthentification(Authentification authentification) {
         this.authentification = authentification;
     }
+
+	public Integer getIdSection() {
+		return idSection;
+	}
+
+	public void setIdSection(int idSection) {
+		this.idSection = idSection;
+	}
 
 	
 

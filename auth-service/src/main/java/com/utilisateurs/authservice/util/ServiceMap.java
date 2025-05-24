@@ -14,6 +14,7 @@ public class ServiceMap {
         dto.setNom(utilisateur.getNom());
         dto.setPrenom(utilisateur.getPrenom());
         dto.setEmail(utilisateur.getEmail());
+        dto.setIdSection(utilisateur.getIdSection());
         dto.setRole(utilisateur.getRole()); 
         return dto;
     }

@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 public class BonDeTravailResponseDTO {
     private Integer idBonDeTravail;
+    private Integer idDemande;
     private String etat;
     private String descriptionTravail;
     private String lieuIntervention;
@@ -70,6 +71,12 @@ public class BonDeTravailResponseDTO {
 	}
 	public void setDateCloture(LocalDate dateCloture) {
 		this.dateCloture = dateCloture;
+	}
+	public Integer getIdDemande() {
+		return idDemande;
+	}
+	public void setIdDemande(Integer idDemande) {
+		this.idDemande = idDemande;
 	}
 	
     

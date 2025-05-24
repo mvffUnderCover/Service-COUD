@@ -81,6 +81,11 @@ public class EtudiantDTO implements UtilisateurCommunDTO {
 	public void setRole(String role) {
 		this.role = role;
 	}
+	@Override
+	public Integer getIdSection() {
+		// TODO Auto-generated method stub
+		return null;
+	}
     
     
 

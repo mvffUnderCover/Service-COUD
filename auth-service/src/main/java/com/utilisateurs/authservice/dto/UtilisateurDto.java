@@ -9,7 +9,9 @@ public class UtilisateurDto implements UtilisateurCommunDTO {
     private String email;
     private Role role;
     
-    // Je veux enlever ces attributs suivants
+    private Integer idSection; // ID provenant de tech-service
+
+    
     //private String faculte; 
     //private String dateLieuNaissance;
     //private String situationFamiliale;
@@ -44,6 +46,13 @@ public class UtilisateurDto implements UtilisateurCommunDTO {
 	public void setRole(Role role) {
 		this.role = role;
 	}
+	public Integer getIdSection() {
+		return idSection;
+	}
+	public void setIdSection(Integer idSection) {
+		this.idSection = idSection;
+	}
+	
 	
 	/*public String getFaculte() {
 		return faculte;

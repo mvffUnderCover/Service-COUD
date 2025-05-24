@@ -17,20 +17,17 @@ public class AvisEtudiant {
 
     private String commentaire;
 
-    private Integer note; // Note optionnelle pour enrichir l'avis
 
     @ManyToOne
     @JoinColumn(name = "id_bon_de_travail")
-    //@JsonIgnoreProperties("avisEtudiants")
     private BonDeTravail bonDeTravail;
 
     public AvisEtudiant() {}
 
-    public AvisEtudiant(Integer id, String idEtudiant, String commentaire, Integer note, BonDeTravail bonDeTravail) {
+    public AvisEtudiant(Integer id, String idEtudiant, String commentaire, BonDeTravail bonDeTravail) {
         this.id = id;
         this.idEtudiant = idEtudiant;
         this.commentaire = commentaire;
-        this.note = note;
         this.bonDeTravail = bonDeTravail;
     }
 
@@ -42,9 +39,6 @@ public class AvisEtudiant {
 
     public String getCommentaire() { return commentaire; }
     public void setCommentaire(String commentaire) { this.commentaire = commentaire; }
-
-    public Integer getNote() { return note; }
-    public void setNote(Integer note) { this.note = note; }
 
     public BonDeTravail getBonDeTravail() { return bonDeTravail; }
     public void setBonDeTravail(BonDeTravail bonDeTravail) { this.bonDeTravail = bonDeTravail; }

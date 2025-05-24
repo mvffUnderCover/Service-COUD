@@ -5,4 +5,5 @@ public interface UtilisateurCommunDTO {
     String getPrenom();
     String getEmail();
     String getRole();
+    Integer getIdSection();
 }

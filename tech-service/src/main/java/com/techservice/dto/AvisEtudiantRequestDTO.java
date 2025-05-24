@@ -3,7 +3,6 @@ package com.techservice.dto;
 public class AvisEtudiantRequestDTO {
     private String idEtudiant;
     private String commentaire;
-    private Integer note;
     private Integer idBonDeTravail; // pour lier à un bon
 	public String getIdEtudiant() {
 		return idEtudiant;
@@ -16,12 +15,6 @@ public class AvisEtudiantRequestDTO {
 	}
 	public void setCommentaire(String commentaire) {
 		this.commentaire = commentaire;
-	}
-	public Integer getNote() {
-		return note;
-	}
-	public void setNote(Integer note) {
-		this.note = note;
 	}
 	public Integer getIdBonDeTravail() {
 		return idBonDeTravail;

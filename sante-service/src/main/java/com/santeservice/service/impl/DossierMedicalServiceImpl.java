@@ -2,6 +2,7 @@ package com.santeservice.service.impl;
 
 import com.santeservice.dto.ConsultationDTO;
 import com.santeservice.dto.DossierMedicalDTO;
+import com.santeservice.dto.HistoriqueConsultationDTO;
 import com.santeservice.dto.MesureDTO;
 import com.santeservice.dto.UtilisateurDTO;
 import com.santeservice.model.Consultation;
@@ -227,6 +228,28 @@ public class DossierMedicalServiceImpl implements DossierMedicalService {
         mesure = mesureRepository.save(mesure);
         dto.setIdMesure(mesure.getIdMesure());
         return dto;
+    }
+    
+    @Override
+    public List<HistoriqueConsultationDTO> getHistoriqueConsultations() {
+        List<DossierMedical> dossiers = repository.findAll(); // à adapter si tu veux paginer
+        List<HistoriqueConsultationDTO> historique = new ArrayList<>();
+        
+
+        for (DossierMedical dossier : dossiers) {
+            int total = dossier.getConsultations().size();
+            for (Consultation c : dossier.getConsultations()) {
+                HistoriqueConsultationDTO dto = new HistoriqueConsultationDTO();
+                dto.setNumeroDossier(dossier.getNumeroDossier());
+                dto.setDateConsultation(c.getDateConsultation());
+                dto.setExamens(c.getExamens());
+                dto.setTraitements(c.getTraitements());
+                dto.setNombreTotalVisites(total);
+
+                historique.add(dto);
+            }
+        }
+        return historique;
     }
 
 

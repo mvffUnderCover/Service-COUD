@@ -95,6 +95,7 @@ public class UtilisateurService {
         user.setPrenom(request.getPrenom());
         user.setTelephone(request.getTelephone());
         user.setDepartement(request.getDepartement());
+        user.setIdSection(request.getIdSection());
         user.setRole(role);
 
         Authentification auth = user.getAuthentification();

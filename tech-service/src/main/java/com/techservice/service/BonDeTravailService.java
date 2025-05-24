@@ -103,20 +103,25 @@ public class BonDeTravailService {
         return repository.save(bon);
     }
 
-    // ✅ Clôturer le bon
+    // Clôturer le bon
     public BonDeTravail cloturerBon(Integer idBon) {
         BonDeTravail bon = repository.findById(idBon)
             .orElseThrow(() -> new RuntimeException("Bon non trouvé"));
 
-        if (!"EXÉCUTÉ".equals(bon.getEtat())) {
-            throw new RuntimeException("Le bon ne peut être clôturé que s'il est en état 'EXÉCUTÉ'");
-        }
-
+        // Changer l'état du bon de travail
         bon.setEtat("CLÔTURÉ");
         bon.setDateCloture(LocalDate.now());
 
-        return repository.save(bon);
+        // Récupérer la demande liée et changer son statut à "Traité"
+        DemandeDepannage demande = bon.getDemande();
+        if (demande != null) {
+            demande.setStatu("Traité");
+            demandeRepo.save(demande); // Sauvegarder les modifications sur la demande
+        }
+
+        return repository.save(bon); // Sauvegarder les modifications sur le bon
     }
+
 
     
 

@@ -16,7 +16,7 @@ public class BonDeTravail {
     @Column(name = "id_bon_travail")
     private Integer idBonDeTravail;
     
-    @JsonIgnore
+    //@JsonIgnore
     @OneToOne
     @JoinColumn(name = "id_demande")
     private DemandeDepannage demande;

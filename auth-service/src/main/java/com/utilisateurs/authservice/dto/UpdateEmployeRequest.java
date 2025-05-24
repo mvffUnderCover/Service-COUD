@@ -7,6 +7,7 @@ public class UpdateEmployeRequest {
     private String email;
     private String telephone;
     private String departement;
+    private Integer idSection;
     private int role_id;
     private String password;
 
@@ -66,6 +67,14 @@ public class UpdateEmployeRequest {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public Integer getIdSection() {
+		return idSection;
+	}
+
+	public void setIdSection(int idSection) {
+		this.idSection = idSection;
 	}
     
 }
