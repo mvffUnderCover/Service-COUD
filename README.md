@@ -49,3 +49,11 @@ Pour améliorer la structure, la sécurité et la performance globale, plusieurs
 - disi-mock-api : composant de simulation reproduisant le comportement de l’API officielle du Département de l’Informatique et du Système d’Information (DISI) de l’UCAD.
   Cette interaction avec le service d’authentification permet de vérifier automatiquement l’inscription d’un étudiant et de récupérer ses informations personnelles et académiques,
   garantissant que seuls les étudiants autorisés peuvent accéder à la plateforme.
+
+
+## Environnement de Déploiement 
+L’ensemble de la solution, incluant tous les micro-services du backend ainsi que l’interface 
+frontend, est entièrement conteneurisé grâce à Docker. L’utilisation d’un fichier docker
+compose.yml a permis de faciliter le déploiement local en orchestrant automatiquement le 
+démarrage de tous les services.  
+Le schéma ci-après illustre l’architecture technique globale de l’application :
