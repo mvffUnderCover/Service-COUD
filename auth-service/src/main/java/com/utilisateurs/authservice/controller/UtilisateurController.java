@@ -85,6 +85,6 @@ public class UtilisateurController {
             return ResponseEntity.noContent().build();
         } catch (EntityNotFoundException e) {
             return ResponseEntity.notFound().build();
-        }
+        } 
     }
 }

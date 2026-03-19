@@ -59,10 +59,11 @@ public class DemandeDepannageController {
             return ResponseEntity.notFound().build();
         }
     }
+    
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable Integer id) {
         service.deleteDemande(id);
         return ResponseEntity.ok().build();
     }
+    
 }
-

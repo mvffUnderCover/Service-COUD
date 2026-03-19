@@ -92,5 +92,11 @@ public class BonDeTravailController {
             return ResponseEntity.notFound().build();
         }
     }
+    
+    @GetMapping("/interventions")
+    public ResponseEntity<List<InterventionDTO>> getInterventions() {
+        return ResponseEntity.ok(service.getInterventions());
+    }
+
 
 }

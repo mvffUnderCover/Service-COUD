@@ -106,6 +106,17 @@ services:
     networks:
       - backend
 
+  front:
+    container_name: service-coud-front
+    build:
+      context: ./service-coud-front
+    ports:
+      - "3000:80"
+    depends_on:
+      - api-gateway
+    networks:
+      - backend
+
 volumes:
   postgres-data:
 

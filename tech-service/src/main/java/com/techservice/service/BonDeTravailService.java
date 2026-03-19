@@ -3,6 +3,7 @@ package com.techservice.service;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -122,6 +123,33 @@ public class BonDeTravailService {
         return repository.save(bon); // Sauvegarder les modifications sur le bon
     }
 
+    public List<InterventionDTO> getInterventions() {
+        List<BonDeTravail> bons = repository.findAll();
+
+        return bons.stream().map(bon -> {
+            DemandeDepannage demande = bon.getDemande();
+            InterventionDTO dto = new InterventionDTO();
+            
+            dto.setIdBon(bon.getIdBonDeTravail());
+            dto.setStatutDemande(demande.getStatu());
+            dto.setIdEtudiant(demande.getIdEtudiant());
+            dto.setPavillon(demande.getNomPavillon());
+            dto.setNumChambre(demande.getNumChambre());
+            dto.setDateSoumission(demande.getDateSoumission());
+            
+            dto.setSection(bon.getSection() != null ? bon.getSection().getNomSection() : null);
+            dto.setIdOuvrier(bon.getIdOuvrier());
+            dto.setLieuIntervention(bon.getLieuIntervention());
+            dto.setDescriptionTravail(bon.getDescriptionTravail());
+            dto.setMaterielConsomme(bon.getMaterielConsomme());
+            
+            dto.setDateCreation(bon.getDateCreation());
+            dto.setDateIntervention(bon.getDateIntervention());
+            dto.setDateCloture(bon.getDateCloture());
+
+            return dto;
+        }).collect(Collectors.toList());
+    }
 
     
 

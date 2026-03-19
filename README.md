@@ -1,59 +1,141 @@
-# Plateforme Centralisée COUD – Projet de Mémoire
+# 📘 Service-COUD
 
-## Contexte
+## 🧩 Présentation
 
-Au Sénégal, les services administratifs reposent encore largement sur des procédures manuelles, coûteuses pour l’État, inefficaces et contraignantes pour les citoyens. 
-Conscient de ces limites, le Président de la République, Bassirou Diomaye Faye, a instruit lors du Conseil des ministres du 12 juin 2024 d’accélérer la digitalisation intégrale 
-des administrations publiques et de définir une stratégie nationale de cybersécurité renforcée.
+**Service-COUD** est une application conçue pour centraliser les services du Centre des Œuvres Universitaires de Dakar (COUD). Elle vise à améliorer l’accès aux services administratifs, techniques et médicaux pour les étudiants et le personnel.
 
-Dans cette dynamique, la modernisation du Centre des Œuvres Universitaires de Dakar (COUD), chargé des services sociaux pour les étudiants 
-de l’Université Cheikh Anta Diop de Dakar (UCAD), constitue une étape clé. 
-Le COUD offre des services tels que : la restauration, la santé, l’hébergement, l’entretien technique des infrastructures et bien d’autres
+L’application repose sur une architecture **microservices** développée avec **Spring Boot**, garantissant modularité, évolutivité et performance.
 
-Cependant, leur gestion reste principalement manuelle, longue et peu transparente, nécessitant souvent la présence physique des étudiants et entraînant files d’attente et formalités lourdes.
+---
 
-## Organisation Technique
+## 🏗️ Architecture Générale
 
-L’application repose sur Spring Boot avec une architecture micro-services et suit le modèle MVC (Modèle – Vue – Contrôleur). Même si la couche Vue est généralement absente côté backend, 
-chaque micro-service principal comprend les couches suivantes :
+L’architecture de la solution est organisée autour de plusieurs microservices, chacun dédié à un domaine fonctionnel spécifique.
 
-- Model (Modèle) : entités Java mappées aux tables de la base via JPA.
+### 🔹 Microservices principaux
 
-- Controller (Contrôleur) : reçoit et traite les requêtes HTTP, puis les transmet à la couche service.
+- **auth-service**  
+  Gestion des utilisateurs, des rôles et des autorisations.  
+  → Assure le contrôle d’accès à la plateforme.
 
-- Service : logique métier spécifique à chaque micro-service, garantissant la séparation des responsabilités.
+- **tech-service**  
+  Gestion des demandes d’interventions techniques.  
+  → Permet la création, le suivi et la planification des requêtes.
 
-- Repository : accès aux données persistées via Spring Data JPA (CRUD et requêtes personnalisées).
+- **sante-service**  
+  Gestion du Dossier Médical Informatisé (DPI).  
+  → Centralise les données médicales des étudiants.
 
-Ces couches sont organisées dans les packages standards : model, controller, service, repository.
+Chaque microservice dispose de sa propre base de données, garantissant une indépendance et une meilleure scalabilité.
 
-### Micro-services Métiers
+---
 
-Chaque micro-service est dédié à un domaine fonctionnel pour garantir modularité et performance :
+## 🔄 Communication et Interaction
 
-- auth-service : gestion des utilisateurs, rôles et autorisations.
+L’interaction entre les différents composants repose sur une architecture fluide et sécurisée.
 
-- tech-service : gestion des demandes d’interventions techniques, suivi et planification pour les étudiants.
+### 🎨 Frontend
 
-- sante-service : gestion du Dossier Médical Informatisé (DPI) pour centraliser les données médicales et optimiser le suivi sanitaire.
+- **SERVICE-COUD-FRONT**
+- Développé avec **React**
+- Point d’entrée unique pour les utilisateurs (étudiants et personnel)
 
-### Micro-services d’Infrastructure
+### 🚪 API Gateway
 
-Pour améliorer la structure, la sécurité et la performance globale, plusieurs micro-services techniques sont mis en place :
+- Implémentée avec **Spring Cloud Gateway**
+- Rôle :
+  - Point d’entrée unique des requêtes
+  - Routage vers les microservices
+  - Gestion de la sécurité
+  - Filtrage et gestion des erreurs
+  - Load balancing
 
-- serveur-eureka : annuaire de services pour la découverte dynamique des micro-services.
+### 🔗 Communication inter-services
 
-- serverconfig-service : centralise la configuration de tous les micro-services via Spring Cloud Config Server.
+- Communication via **HTTP/REST**
+- Utilisation de **Feign Client** (Spring Cloud)
+- Faible couplage entre les services
 
-- api-gateway : point d’entrée unique pour toutes les requêtes externes, assurant redirection, sécurité et gestion de la montée en charge.
-- disi-mock-api : composant de simulation reproduisant le comportement de l’API officielle du Département de l’Informatique et du Système d’Information (DISI) de l’UCAD.
-  Cette interaction avec le service d’authentification permet de vérifier automatiquement l’inscription d’un étudiant et de récupérer ses informations personnelles et académiques,
-  garantissant que seuls les étudiants autorisés peuvent accéder à la plateforme.
+### 🏫 Intégration externe
 
+- Interaction avec une API simulée du **DISI (UCAD)** :
+  - Vérification du statut étudiant
+  - Synchronisation des données académiques
 
-## Environnement de Déploiement 
-L’ensemble de la solution, incluant tous les micro-services du backend ainsi que l’interface 
-frontend, est entièrement conteneurisé grâce à Docker. L’utilisation d’un fichier docker
-compose.yml a permis de faciliter le déploiement local en orchestrant automatiquement le 
-démarrage de tous les services.  
-Le schéma ci-après illustre l’architecture technique globale de l’application :
+---
+
+## ⚙️ Services d’Infrastructure (Spring Cloud)
+
+Pour garantir une architecture distribuée efficace, plusieurs composants d’infrastructure sont utilisés :
+
+### 🔍 Service Discovery
+
+- Basé sur **Eureka**
+- Permet :
+  - L’enregistrement automatique des services
+  - La découverte dynamique des microservices
+- Évite la configuration manuelle des adresses
+
+### ⚙️ Configuration centralisée
+
+- Utilisation d’un **Config Server**
+- Configurations externalisées dans un dépôt Git
+- Avantages :
+  - Mise à jour sans redéploiement
+  - Centralisation des paramètres
+
+---
+
+## 🐳 Environnement de Déploiement
+
+L’application est entièrement conteneurisée avec **Docker**.
+
+### 🚀 Déploiement local
+
+- Orchestration via **docker-compose.yml**
+- Permet :
+  - Le démarrage automatique de tous les services
+  - La gestion des dépendances
+  - Une reproduction facile de l’environnement
+
+### ☁️ Production
+
+- Possibilité d’utiliser un orchestrateur comme **Kubernetes** pour :
+  - Scalabilité
+  - Haute disponibilité
+  - Gestion avancée des conteneurs
+
+---
+
+## 🖼️ Schéma d’Architecture
+
+Le diagramme ci-dessous illustre l’architecture technique globale de l’application :
+
+![Architecture Service-COUD](docs/architecture.png)
+
+---
+
+## 🛠️ Technologies utilisées
+
+- **Backend** : Spring Boot, Spring Cloud
+- **Frontend** : React
+- **Base de données** : PostgreSQL
+- **Communication** : REST, Feign
+- **Infrastructure** : Eureka, Config Server
+- **Conteneurisation** : Docker, Docker Compose
+
+---
+
+## ✅ Objectifs du projet
+
+- Centraliser les services du COUD
+- Améliorer l’expérience utilisateur
+- Assurer une architecture scalable et maintenable
+- Faciliter l’intégration avec des systèmes externes
+
+---
+
+## 🎥 Démonstration
+
+👉 Vidéo de démonstration :  
+https://drive.google.com/your-demo-link
